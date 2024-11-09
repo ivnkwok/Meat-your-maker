@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2aplf2yc68u8"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_1gd8r"]
+[ext_resource type="Texture2D" uid="uid://boho2v0li72ww" path="res://sprites/cow.png" id="1_3qcx4"]
+[ext_resource type="Texture2D" uid="uid://b8sr228bwn8ix" path="res://sprites/cow2.png" id="3_bhrqn"]
+[ext_resource type="Texture2D" uid="uid://cbpqq0epw7tfj" path="res://sprites/cow3.png" id="4_ea5eo"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wjxwv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3qcx4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bhrqn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ea5eo")
+}],
+"loop": true,
+"name": &"cow",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpup4"]
+size = Vector2(50, 34)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 0
+script = ExtResource("1_1gd8r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.105, 0.105)
+sprite_frames = SubResource("SpriteFrames_wjxwv")
+animation = &"cow"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fpup4")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 65534
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_fpup4")
+
+[node name="HP Container" type="ColorRect" parent="."]
+offset_left = -21.0
+offset_top = -15.0
+offset_right = 21.0
+offset_bottom = -12.0
+color = Color(0.442911, 0.442911, 0.442911, 1)
+
+[node name="HP Bar" type="ColorRect" parent="HP Container"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = -0.5
+offset_right = 41.0
+offset_bottom = 0.5
+grow_vertical = 2
+color = Color(1, 0, 0, 1)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
