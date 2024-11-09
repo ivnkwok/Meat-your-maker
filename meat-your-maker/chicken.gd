@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var state = IDLE
+@onready var sprite = $AnimatedSprite2D
 @export var enemyName: String = "chicken"
 
 enum {
@@ -10,7 +11,7 @@ enum {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$AnimatedSprite2D.play()
+	sprite.play("idle")
 	pass # Replace with function body.
 
 
@@ -18,8 +19,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	match state:
 		IDLE:
+			sprite.play("idle")
 			pass
 		ACTIVE:
+			sprite.play("active")
 			if (Global.playerPos.x > position.x):
 				$AnimatedSprite2D.flip_h = true
 			else:
