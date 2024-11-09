@@ -1,35 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmiym06knwapt"]
+[gd_scene load_steps=9 format=3 uid="uid://ec8n6qvqmt6x"]
 
-[ext_resource type="Script" path="res://scripts/chicken.gd" id="1_k87c3"]
-[ext_resource type="Texture2D" uid="uid://dt84cctwrxyjp" path="res://sprites/chickensprite.png" id="2_6py24"]
+[ext_resource type="Script" path="res://scripts/crocodile.gd" id="1_f66c3"]
+[ext_resource type="Texture2D" uid="uid://b16ugcqkg83hr" path="res://sprites/crocodilesprite.png" id="2_532mg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_addpu"]
-radius = 6.0
-height = 16.0
+radius = 5.0
+height = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ays"]
-radius = 74.0
+radius = 113.004
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xq2fr"]
-atlas = ExtResource("2_6py24")
-region = Rect2(14, 0, 14, 12)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qyie"]
+atlas = ExtResource("2_532mg")
+region = Rect2(53, 0, 53, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwi4o"]
-atlas = ExtResource("2_6py24")
-region = Rect2(28, 0, 14, 12)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb2y8"]
+atlas = ExtResource("2_532mg")
+region = Rect2(106, 0, 53, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_weq43"]
-atlas = ExtResource("2_6py24")
-region = Rect2(0, 0, 14, 12)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wog53"]
+atlas = ExtResource("2_532mg")
+region = Rect2(0, 0, 53, 25)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3awal"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xq2fr")
+"texture": SubResource("AtlasTexture_6qyie")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hwi4o")
+"texture": SubResource("AtlasTexture_nb2y8")
 }],
 "loop": true,
 "name": &"active",
@@ -37,17 +37,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_weq43")
+"texture": SubResource("AtlasTexture_wog53")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[node name="Chicken" type="CharacterBody2D"]
+[node name="Crocodile" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_k87c3")
+script = ExtResource("1_f66c3")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -60,10 +60,11 @@ collision_layer = 4
 shape = SubResource("CircleShape2D_81ays")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 4)
+scale = Vector2(0.62, 0.59)
 sprite_frames = SubResource("SpriteFrames_3awal")
 animation = &"active"
-offset = Vector2(0, -4)
+frame_progress = 0.857623
+offset = Vector2(0, 2)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

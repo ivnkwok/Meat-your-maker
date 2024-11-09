@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cadkjoc4lccr2"]
+[gd_scene load_steps=10 format=3 uid="uid://cadkjoc4lccr2"]
 
-[ext_resource type="Script" path="res://cow.gd" id="1_25q73"]
+[ext_resource type="Script" path="res://scripts/cow.gd" id="1_25q73"]
 [ext_resource type="Texture2D" uid="uid://cgftwmsqxe46d" path="res://sprites/Free Cow Sprites.png" id="1_k2uac"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_addpu"]
-height = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ays"]
 radius = 74.0
@@ -21,6 +20,10 @@ region = Rect2(0, 32, 32, 32)
 atlas = ExtResource("1_k2uac")
 region = Rect2(32, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5jvy"]
+atlas = ExtResource("1_k2uac")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6sk3o"]
 animations = [{
 "frames": [{
@@ -34,8 +37,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_o185u")
 }],
 "loop": true,
-"name": &"default",
+"name": &"active",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5jvy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
 }]
 
 [node name="Cow" type="CharacterBody2D"]
@@ -43,19 +54,19 @@ collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_25q73")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_addpu")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Detection" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_81ays")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6sk3o")
-frame_progress = 0.378931
+animation = &"idle"
 offset = Vector2(0, -4)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://duidbdo1mkj7w"]
+[gd_scene load_steps=6 format=3 uid="uid://duidbdo1mkj7w"]
 
-[ext_resource type="Script" path="res://zone1factory.gd" id="1_j4gya"]
+[ext_resource type="Script" path="res://scripts/zone1factory.gd" id="1_j4gya"]
 [ext_resource type="PackedScene" uid="uid://cadkjoc4lccr2" path="res://cow.tscn" id="2_rs4jx"]
 [ext_resource type="PackedScene" uid="uid://dmiym06knwapt" path="res://chicken.tscn" id="3_g2lyv"]
 [ext_resource type="PackedScene" uid="uid://chpfgkl5d7qdy" path="res://lizard.tscn" id="4_k32cu"]
+[ext_resource type="PackedScene" uid="uid://ec8n6qvqmt6x" path="res://crocodile.tscn" id="5_jd4uo"]
 
 [node name="Zone1Factory" type="Node2D"]
 script = ExtResource("1_j4gya")
@@ -13,3 +14,5 @@ script = ExtResource("1_j4gya")
 [node name="Chicken" parent="." instance=ExtResource("3_g2lyv")]
 
 [node name="Lizard" parent="." instance=ExtResource("4_k32cu")]
+
+[node name="Crocodile" parent="." instance=ExtResource("5_jd4uo")]

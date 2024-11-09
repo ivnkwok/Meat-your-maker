@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+class_name enemy
+
 var state = IDLE
 @onready var sprite = $AnimatedSprite2D
-@export var enemyName: String = "chicken"
+@export var enemyName: String = "cow"
 
 enum {
 	IDLE,
@@ -23,12 +25,13 @@ func _process(delta: float) -> void:
 			pass
 		ACTIVE:
 			sprite.play("active")
-			if (Global.playerPos.x > position.x):
+			if (Global.playerPos.x > global_position.x):
 				$AnimatedSprite2D.flip_h = true
 			else:
 				$AnimatedSprite2D.flip_h = false
-			position.x = move_toward(position.x, Global.playerPos.x, Global.enemyData["chicken"]["SPD"])
-			position.y = move_toward(position.y, Global.playerPos.y, Global.enemyData["chicken"]["SPD"])
+			global_position.x = move_toward(global_position.x, Global.playerPos.x, Global.enemyData[enemyName]["SPD"])
+			global_position.y = move_toward(global_position.y, Global.playerPos.y, Global.enemyData[enemyName]["SPD"])
+			print(global_position)
 	pass
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:

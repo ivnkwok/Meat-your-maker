@@ -14,8 +14,8 @@ func _process(delta: float) -> void:
 	
 	#update position
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
-	position += direction * delta * 50
-	Global.playerPos = position
+	global_position += direction * delta * 5000
+	Global.playerPos = global_position
 	
 	#animation/turning
 	sprite.play("cow")
@@ -38,6 +38,6 @@ func _process(delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var dmg = Global.enemyData[body.enemyName]["ATK"]
 	hp -= dmg
-	body.position.x = move_toward(body.position.x, Global.playerPos.x, -15)
-	body.position.y = move_toward(body.position.y, Global.playerPos.y, -15)
+	body.global_position.x = move_toward(body.global_position.x, Global.playerPos.x, -700)
+	body.global_position.y = move_toward(body.global_position.y, Global.playerPos.y, -700)
 	pass # Replace with function body.

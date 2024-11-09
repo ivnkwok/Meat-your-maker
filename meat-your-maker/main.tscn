@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://br37r2e4mylan"]
+[gd_scene load_steps=9 format=4 uid="uid://br37r2e4mylan"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_6bnt4"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://btwnl8cxj1ky3" path="res://sprites/Grass.png" id="1_jxa22"]
 [ext_resource type="PackedScene" uid="uid://c2aplf2yc68u8" path="res://player.tscn" id="2_tyexb"]
 [ext_resource type="PackedScene" uid="uid://cadkjoc4lccr2" path="res://cow.tscn" id="3_k3jhe"]
-[ext_resource type="PackedScene" uid="uid://dmiym06knwapt" path="res://chicken.tscn" id="5_vakyd"]
-[ext_resource type="PackedScene" uid="uid://chpfgkl5d7qdy" path="res://lizard.tscn" id="6_2p3qf"]
+[ext_resource type="PackedScene" uid="uid://duidbdo1mkj7w" path="res://zone_1_factory.tscn" id="7_s1hp7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -111,9 +110,6 @@ position = Vector2(2.37, 2.03)
 scale = Vector2(0.011025, 0.011025)
 zoom = Vector2(0.04, 0.04)
 
-[node name="Cow" parent="." instance=ExtResource("3_k3jhe")]
-position = Vector2(-172.87, -67.04)
-
 [node name="Timer" type="Timer" parent="."]
 
 [node name="ShopZone" type="Area2D" parent="."]
@@ -121,8 +117,14 @@ position = Vector2(-172.87, -67.04)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ShopZone"]
 shape = SubResource("RectangleShape2D_bepol")
 
-[node name="Chicken" parent="." instance=ExtResource("5_vakyd")]
-position = Vector2(158.08, -101.14)
+[node name="Zone1Factory" parent="." instance=ExtResource("7_s1hp7")]
+position = Vector2(157.85, 83.04)
 
-[node name="Lizard" parent="." instance=ExtResource("6_2p3qf")]
-position = Vector2(-169.15, 120.39)
+[node name="Zone1Factory2" parent="." instance=ExtResource("7_s1hp7")]
+position = Vector2(195.2, -102.4)
+
+[node name="Zone1Factory3" parent="." instance=ExtResource("7_s1hp7")]
+position = Vector2(-177.92, 123.52)
+
+[node name="Zone1Factory4" parent="." instance=ExtResource("7_s1hp7")]
+position = Vector2(-185.6, -98.56)
