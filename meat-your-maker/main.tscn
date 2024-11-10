@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://br37r2e4mylan"]
+[gd_scene load_steps=15 format=4 uid="uid://br37r2e4mylan"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://btwnl8cxj1ky3" path="res://sprites/Grass.png" id="1_jxa22"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://quitButton.gd" id="4_1sn1l"]
 [ext_resource type="Script" path="res://death_screen.gd" id="4_ola1x"]
 [ext_resource type="Script" path="res://restartButton.gd" id="5_hq716"]
+[ext_resource type="Texture2D" uid="uid://caqnvmrutj8ip" path="res://meats.png" id="7_kulhi"]
+[ext_resource type="Script" path="res://meat_sprite.gd" id="8_trvw3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -191,5 +193,12 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zone2"]
 shape = SubResource("RectangleShape2D_au3yr")
+
+[node name="meatSprite" type="Sprite2D" parent="."]
+position = Vector2(-29.5, 13.9)
+texture = ExtResource("7_kulhi")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("8_trvw3")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
