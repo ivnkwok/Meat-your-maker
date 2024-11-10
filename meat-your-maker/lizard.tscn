@@ -62,7 +62,7 @@ shape = SubResource("CircleShape2D_81ays")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 4)
 sprite_frames = SubResource("SpriteFrames_qlsol")
-animation = &"idle"
+animation = &"active"
 offset = Vector2(0, -4)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

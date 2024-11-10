@@ -30,8 +30,10 @@ func _process(delta: float) -> void:
 				$AnimatedSprite2D.flip_h = false
 			global_position.x = move_toward(global_position.x, Global.playerPos.x, Global.enemyData[enemyName]["SPD"])
 			global_position.y = move_toward(global_position.y, Global.playerPos.y, Global.enemyData[enemyName]["SPD"])
+			
 	if (global_position.distance_to(Global.playerPos) > 350*100):
 		queue_free()
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	state = ACTIVE
 	pass # Replace with function body.
