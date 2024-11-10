@@ -118,7 +118,7 @@ tile_set = SubResource("TileSet_7eknr")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.011025, 0.011025)
-zoom = Vector2(0.02, 0.02)
+zoom = Vector2(0.04, 0.04)
 
 [node name="SpawnRadius" type="Area2D" parent="Player"]
 collision_layer = 0
