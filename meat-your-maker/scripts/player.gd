@@ -15,16 +15,17 @@ func _process(delta: float) -> void:
 	
 	#update position
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
-	position += direction * delta * 50
-	Global.playerPos = position
+	global_position += direction * delta * 5000
+	Global.playerPos = global_position
 	
 	#animation/turning
+	print(direction)
 	if (direction == Vector2(0,0)):
 		sprite.play("idle")
-	if (direction.x < 0):
+	if (direction.x < 0 && sprite.flip_h == true):
 		sprite.play("active")
 		sprite.set_flip_h(false)
-	if (direction.x > 0):
+	if (direction.x > 0 && sprite.flip_h == false):
 		sprite.play("active")
 		sprite.set_flip_h(true)
 	if (direction.y != 0):
