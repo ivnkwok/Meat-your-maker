@@ -11,32 +11,19 @@
 [ext_resource type="Script" path="res://restartButton.gd" id="5_hq716"]
 [ext_resource type="PackedScene" uid="uid://bo5xvqsgidj7p" path="res://scythe.tscn" id="7_jucny"]
 [ext_resource type="Script" path="res://scripts/meat_counter.gd" id="8_5gpti"]
-[ext_resource type="Script" path="res://sell_meat_button.gd" id="10_ob4d2"]
+[ext_resource type="Script" path="res://shop_gui.gd" id="10_7o8mf"]
 [ext_resource type="Script" path="res://attack_node.gd" id="11_45brj"]
+[ext_resource type="Texture2D" uid="uid://2h2s0w3es150" path="res://sprites/Coin.png" id="12_bms63"]
 [ext_resource type="Texture2D" uid="uid://dep41j50dhdlw" path="res://sprites/shop.png" id="13_5gr8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7b8xj"]
+size = Vector2(5, 5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7in1g"]
 radius = 350.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eisom"]
 radius = 125.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7b8xj"]
-size = Vector2(5, 5)
-
-[sub_resource type="GDScript" id="GDScript_whjoj"]
-script/source = "extends CollisionPolygon2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -199,6 +186,21 @@ metadata/_edit_horizontal_guides_ = [-40271.0]
 [node name="Player" parent="." instance=ExtResource("2_tyexb")]
 z_index = 1
 
+[node name="AttackNode" type="Node2D" parent="Player"]
+script = ExtResource("11_45brj")
+
+[node name="RotationNode" type="Node2D" parent="Player/AttackNode"]
+
+[node name="Scythe" parent="Player/AttackNode/RotationNode" instance=ExtResource("7_jucny")]
+
+[node name="Area2D" type="Area2D" parent="Player/AttackNode/RotationNode/Scythe"]
+collision_layer = 8
+collision_mask = 2
+collision_priority = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackNode/RotationNode/Scythe/Area2D"]
+shape = SubResource("RectangleShape2D_7b8xj")
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.011025, 0.011025)
 zoom = Vector2(0.04, 0.04)
@@ -222,17 +224,6 @@ theme_override_font_sizes/font_size = 400
 text = "meat"
 script = ExtResource("8_5gpti")
 
-[node name="SellMeatButton" type="Button" parent="Player/Camera2D/UI"]
-layout_mode = 0
-offset_left = -1.08004
-offset_top = 29.6
-offset_right = 77.92
-offset_bottom = 60.6
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 400
-text = "Sell Meat"
-script = ExtResource("10_ob4d2")
-
 [node name="SpawnRadius" type="Area2D" parent="Player"]
 visible = false
 collision_layer = 0
@@ -248,6 +239,70 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AntispawnRadius"]
 shape = SubResource("CircleShape2D_eisom")
+
+[node name="ShopGUI" type="Control" parent="Player"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_7o8mf")
+
+[node name="ColorRect" type="ColorRect" parent="Player/ShopGUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -162.5
+offset_right = 290.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.241156, 0.241156, 0.241156, 1)
+
+[node name="SellMeatButton" type="Button" parent="Player/ShopGUI/ColorRect"]
+layout_mode = 1
+offset_left = 513.6
+offset_top = 302.32
+offset_right = 2528.6
+offset_bottom = 856.32
+scale = Vector2(0.03, 0.03)
+theme_override_font_sizes/font_size = 400
+text = "Sell Meat"
+
+[node name="ExitShopButton" type="Button" parent="Player/ShopGUI/ColorRect"]
+layout_mode = 0
+offset_left = 549.92
+offset_top = 0.139995
+offset_right = 579.92
+offset_bottom = 31.14
+text = "x"
+
+[node name="Coin" type="Sprite2D" parent="Player/ShopGUI/ColorRect"]
+position = Vector2(11.14, 11.22)
+scale = Vector2(1.13125, 1.13125)
+texture = ExtResource("12_bms63")
+
+[node name="CoinCounter" type="Label" parent="Player/ShopGUI/ColorRect"]
+layout_mode = 0
+offset_left = 20.82
+offset_top = -1.56
+offset_right = 1022.82
+offset_bottom = 544.44
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+text = ": 0"
 
 [node name="DeathScreen" type="Control" parent="Player"]
 visible = false
@@ -284,28 +339,6 @@ offset_bottom = 50.95
 text = "Restart"
 script = ExtResource("5_hq716")
 
-[node name="AttackNode" type="Node2D" parent="Player"]
-script = ExtResource("11_45brj")
-
-[node name="RotationNode" type="Node2D" parent="Player/AttackNode"]
-
-[node name="Scythe" parent="Player/AttackNode/RotationNode" instance=ExtResource("7_jucny")]
-
-[node name="Area2D" type="Area2D" parent="Player/AttackNode/RotationNode/Scythe"]
-collision_layer = 8
-collision_mask = 2
-collision_priority = 2.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackNode/RotationNode/Scythe/Area2D"]
-shape = SubResource("RectangleShape2D_7b8xj")
-
-[node name="ShopZone" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ShopZone"]
-polygon = PackedVector2Array(-75, -75, 75, -75, 75, 75, -75, 75)
-script = SubResource("GDScript_whjoj")
-
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -88.0
 offset_top = -60.08
@@ -321,6 +354,11 @@ tile_set = SubResource("TileSet_7eknr")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="ShopZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ShopZone"]
+polygon = PackedVector2Array(-75, -75, 75, -75, 75, 75, -75, 75)
 
 [node name="Zone1" type="Area2D" parent="."]
 visible = false
@@ -339,4 +377,7 @@ scale = Vector2(0.15, 0.15)
 texture = ExtResource("13_5gr8t")
 
 [connection signal="body_entered" from="Player/AttackNode/RotationNode/Scythe/Area2D" to="Player/AttackNode" method="_on_area_2d_body_entered"]
+[connection signal="pressed" from="Player/ShopGUI/ColorRect/SellMeatButton" to="Player/ShopGUI" method="_on_sell_meat_button_pressed"]
+[connection signal="pressed" from="Player/ShopGUI/ColorRect/ExitShopButton" to="Player/ShopGUI" method="_on_exit_shop_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="ShopZone" to="." method="_on_shop_zone_body_entered"]

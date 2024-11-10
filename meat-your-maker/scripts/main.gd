@@ -10,6 +10,8 @@ extends Node2D
 @onready var attackNode = $Player/AttackNode
 @onready var rotationNode = $Player/AttackNode/RotationNode
 @onready var scythe = $Player/AttackNode/RotationNode/Scythe
+
+@onready var shopGui = $Player/ShopGUI
 var swing = 1
 var range = 125
 
@@ -29,12 +31,12 @@ func _process(delta: float) -> void:
 	#elif(Global.playerDirection.x < 0):
 		#scythe.position.x = -abs(scythe.position.x)
 	if (!Global.paused):
+		#attack
 		attackNode.look_at(get_global_mouse_position())
 		if (get_local_mouse_position().distance_to(Global.playerPos) < range/2):
 			scythe.position.x = abs(get_local_mouse_position().distance_to(Global.playerPos)*2)
 		else:
 			scythe.position.x = range
-		
 		if (rotationNode.rotation_degrees > 40 && swing > 0):
 			swing = -0.03
 		if (rotationNode.rotation_degrees < -40 && swing < 0):
@@ -82,4 +84,8 @@ func zone1spawn(pos: Vector2) -> void:
 	spawn.position = pos
 	add_child(spawn)
 	
-	
+func _on_shop_zone_body_entered(body: Node2D) -> void:
+	if (body.name == "Player"):
+		Global.paused = true
+		shopGui.visible = true
+	pass # Replace with function body.

@@ -7,6 +7,7 @@ var hp = Global.playerMaxHP
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.doFlood = false
 	sprite.play("idle")
 	pass # Replace with function body.
 
@@ -14,10 +15,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if (hp <= 0):
 		Global.paused = true
+		sprite.visible = false
 		hpBar.visible = false
 		hpContainer.visible = false
-		Global.doFlood = true
-	else:
+	elif (!Global.paused):
 		#update position
 		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
 		position += direction * delta * 50
