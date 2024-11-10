@@ -1,5 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://br37r2e4mylan"]
 
+
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://btwnl8cxj1ky3" path="res://sprites/Grass.png" id="1_jxa22"]
 [ext_resource type="PackedScene" uid="uid://c2aplf2yc68u8" path="res://player.tscn" id="2_tyexb"]
@@ -85,17 +86,10 @@ texture = ExtResource("1_jxa22")
 sources/0 = SubResource("TileSetAtlasSource_184ij")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7in1g"]
-radius = 335.531
+radius = 350.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eisom"]
 radius = 125.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bepol"]
-size = Vector2(116.607, 106.36)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_au3yr"]
-custom_solver_bias = 1.0
-size = Vector2(1800, 1800)
 
 [node name="main" type="Node2D"]
 scale = Vector2(100, 100)
@@ -168,28 +162,26 @@ text = "Restart"
 script = ExtResource("5_hq716")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.1
 autostart = true
 
 [node name="ShopZone" type="Area2D" parent="."]
-visible = false
 collision_layer = 512
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopZone"]
-shape = SubResource("RectangleShape2D_bepol")
-debug_color = Color(0, 0.648099, 0.191628, 0.42)
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ShopZone"]
+polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
 
 [node name="Zone1" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone1"]
-shape = SubResource("RectangleShape2D_au3yr")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone1"]
+polygon = PackedVector2Array(-450, -450, 450, -450, 450, 450, -450, 450)
 
 [node name="Zone2" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone2"]
-shape = SubResource("RectangleShape2D_au3yr")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone2"]
+polygon = PackedVector2Array(-900, -900, 900, -900, 900, 900, -900, 900)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
