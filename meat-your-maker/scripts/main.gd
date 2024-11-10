@@ -21,14 +21,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	attackNode.position = Global.playerPos
-	print(attackNode.rotation_degrees)
+	print(attackNode.position - Global.playerPos)
+	print(attackNode.position - scythe.position)
 	if (attackNode.rotation_degrees > 50 && swing > 0):
 		swing = -0.03
 	if (attackNode.rotation_degrees < -50 && swing < 0):
 		swing = 0.03
 	attackNode.rotate(swing)
 	pass
-
 
 func _on_timer_timeout() -> void:
 	if(Global.mobCount<=maxMobs):
