@@ -10,26 +10,26 @@ height = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ays"]
 radius = 74.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xq2fr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hckt"]
 atlas = ExtResource("2_6py24")
 region = Rect2(14, 0, 14, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwi4o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fve5"]
 atlas = ExtResource("2_6py24")
 region = Rect2(28, 0, 14, 12)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_weq43"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i57l"]
 atlas = ExtResource("2_6py24")
 region = Rect2(0, 0, 14, 12)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_3awal"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_63ruq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xq2fr")
+"texture": SubResource("AtlasTexture_1hckt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hwi4o")
+"texture": SubResource("AtlasTexture_2fve5")
 }],
 "loop": true,
 "name": &"active",
@@ -37,7 +37,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_weq43")
+"texture": SubResource("AtlasTexture_3i57l")
 }],
 "loop": true,
 "name": &"idle",
@@ -60,10 +60,8 @@ collision_layer = 4
 shape = SubResource("CircleShape2D_81ays")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 4)
-sprite_frames = SubResource("SpriteFrames_3awal")
+sprite_frames = SubResource("SpriteFrames_63ruq")
 animation = &"idle"
-offset = Vector2(0, -4)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
