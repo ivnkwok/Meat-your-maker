@@ -3,8 +3,9 @@ extends CharacterBody2D
 class_name enemy
 
 var state = IDLE
+var currentHP = 0
 @onready var sprite = $AnimatedSprite2D
-@export var enemyName: String = "cow"
+@export var enemyName: String = ""
 
 enum {
 	IDLE,
@@ -13,6 +14,7 @@ enum {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	currentHP = Global.enemyData[enemyName]["MaxHP"]
 	pass # Replace with function body.
 
 
