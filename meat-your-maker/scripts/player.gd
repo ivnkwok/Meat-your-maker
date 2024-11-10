@@ -5,7 +5,6 @@ var hp = Global.playerMaxHP
 @onready var hpContainer = $"HP Container"
 @onready var hpBar = $"HP Container/HP Bar"
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite.play("idle")
@@ -30,7 +29,7 @@ func _process(delta: float) -> void:
 		sprite.set_flip_h(true)
 	if (direction.y != 0):
 		sprite.play("active")
-	
+		
 	#set hp bar
 	hpBar.size.x = hp/Global.playerMaxHP*(hpContainer.size.x - 2)
 	

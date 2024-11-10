@@ -15,6 +15,8 @@ enum {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	currentHP = Global.enemyData[enemyName]["MaxHP"]
+	
+	
 	pass # Replace with function body.
 
 
