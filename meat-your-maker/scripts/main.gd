@@ -2,22 +2,21 @@ extends Node2D
 
 @onready var spawnRadius = $Player/SpawnRadius/CollisionShape2D.shape.radius * 100
 @onready var noSpawnRadius = $Player/AntispawnRadius/CollisionShape2D.shape.radius * 100
-
+var maxMobs = Global.maxMobs
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for i in range(100):
-		zone1spawn()
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
 	pass
 
 
 func _on_timer_timeout() -> void:
-	
+	if(Global.mobCount<=maxMobs):
+		zone1spawn()
+		Global.mobCount+=1
 	pass # Replace with function body.
 
 func zone1spawn() -> void:
@@ -31,7 +30,8 @@ func zone1spawn() -> void:
 	var spawner = spawnerScene.instantiate()
 	var x = (Global.playerPos.x + r * cos(angle))/100
 	var y = (Global.playerPos.y + r * sin(angle))/100
-	spawner.global_position = Vector2(x,y)
+	spawner.position = Vector2(x,y)
+	print(spawner.position)
 	add_child(spawner)
 	
 	
