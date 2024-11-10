@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://duidbdo1mkj7w"]
 
-[ext_resource type="Script" path="res://scripts/zone1factory.gd" id="1_j4gya"]
+[ext_resource type="Script" path="res://scripts/zone1spawner.gd" id="1_j4gya"]
 [ext_resource type="PackedScene" uid="uid://cadkjoc4lccr2" path="res://cow.tscn" id="2_rs4jx"]
 [ext_resource type="PackedScene" uid="uid://dmiym06knwapt" path="res://chicken.tscn" id="3_g2lyv"]
 [ext_resource type="PackedScene" uid="uid://chpfgkl5d7qdy" path="res://lizard.tscn" id="4_k32cu"]
