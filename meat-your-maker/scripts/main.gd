@@ -28,18 +28,18 @@ func _process(delta: float) -> void:
 		#scythe.position.x = abs(scythe.position.x)
 	#elif(Global.playerDirection.x < 0):
 		#scythe.position.x = -abs(scythe.position.x)
-	
-	attackNode.look_at(get_global_mouse_position())
-	if (get_local_mouse_position().distance_to(Global.playerPos) < range/2):
-		scythe.position.x = abs(get_local_mouse_position().distance_to(Global.playerPos)*2)
-	else:
-		scythe.position.x = range
-	
-	if (rotationNode.rotation_degrees > 40 && swing > 0):
-		swing = -0.03
-	if (rotationNode.rotation_degrees < -40 && swing < 0):
-		swing = 0.03
-	rotationNode.rotate(swing)
+	if (!Global.paused):
+		attackNode.look_at(get_global_mouse_position())
+		if (get_local_mouse_position().distance_to(Global.playerPos) < range/2):
+			scythe.position.x = abs(get_local_mouse_position().distance_to(Global.playerPos)*2)
+		else:
+			scythe.position.x = range
+		
+		if (rotationNode.rotation_degrees > 40 && swing > 0):
+			swing = -0.03
+		if (rotationNode.rotation_degrees < -40 && swing < 0):
+			swing = 0.03
+		rotationNode.rotate(swing)
 	pass
 
 func _on_timer_timeout() -> void:

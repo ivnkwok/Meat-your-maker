@@ -8,9 +8,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(get_parent().hp > 0):
-		for child in get_children():
-			child.visible = false
+		visible = false
 	else:
-		for child in get_children():
-			child.visible = true
+		visible = true
 	pass
