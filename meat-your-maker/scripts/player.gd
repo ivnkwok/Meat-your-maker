@@ -12,29 +12,34 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	#update position
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
-	position += direction * delta * 50
-	Global.playerPos = position
-	
-	#animation/turning
-	if (direction == Vector2(0,0)):
-		sprite.play("idle")
-	if (direction.x < 0):
-		sprite.play("active")
-		sprite.set_flip_h(false)
-	if (direction.x > 0):
-		sprite.play("active")
-		sprite.set_flip_h(true)
-	if (direction.y != 0):
-		sprite.play("active")
+	if(hp>0):
+		#update position
+		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
+		position += direction * delta * 50
+		Global.playerDirection = direction
+		Global.playerPos = position
 		
-	#set hp bar
-	hpBar.size.x = hp/Global.playerMaxHP*(hpContainer.size.x - 2)
-	
-	if (hp <= 0):
+		#animation/turning
+		if (direction == Vector2(0,0)):
+			sprite.play("idle")
+		if (direction.x < 0):
+			sprite.play("active")
+			sprite.set_flip_h(false)
+		if (direction.x > 0):
+			sprite.play("active")
+			sprite.set_flip_h(true)
+		if (direction.y != 0):
+			sprite.play("active")
+			
+		#set hp bar
+		hpBar.size.x = (float(hp) / Global.playerMaxHP) * (hpContainer.size.x - 2)
+
+		
+	else:
 		#TODO: game over screen & death
+		sprite.visible = false
+		hpBar.visible = false
+		hpContainer.visible = false
 		pass
 	pass
 

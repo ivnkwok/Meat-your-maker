@@ -11,11 +11,13 @@ var player_distance
 func _ready() -> void:
 	#get a random meat sprite
 	#player_node = get_tree().current_scene.get_node("Player")
+	
 	var random_index = randi_range(0, frames-1)
 	region_rect.position.x = random_index * region_rect.size.x
 	#position_offset = Vector2(region_rect.position.x + 8, 8)
 	
 	pass # Replace with function body.
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

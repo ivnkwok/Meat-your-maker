@@ -10,19 +10,23 @@ extends Node2D
 @onready var attackNode = $Player/AttackNode
 @onready var scythe = $Player/AttackNode/Scythe
 var swing = 1
+var range = 125
 
 var maxMobs = Global.maxMobs
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	scythe.position = Vector2(noSpawnRadius, 0)
+	print(noSpawnRadius)
+	scythe.position.x = range
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	attackNode.position = Global.playerPos
-	print(attackNode.position - Global.playerPos)
-	print(attackNode.position - scythe.position)
+	
+	if(Global.playerDirection.x > 0): #flips the scythe to face the right direction
+		scythe.position.x = abs(scythe.position.x)
+	elif(Global.playerDirection.x < 0):
+		scythe.position.x = -abs(scythe.position.x)
 	if (attackNode.rotation_degrees > 50 && swing > 0):
 		swing = -0.03
 	if (attackNode.rotation_degrees < -50 && swing < 0):
