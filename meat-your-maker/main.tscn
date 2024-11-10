@@ -3,10 +3,12 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://btwnl8cxj1ky3" path="res://sprites/Grass.png" id="1_jxa22"]
 [ext_resource type="PackedScene" uid="uid://c2aplf2yc68u8" path="res://player.tscn" id="2_tyexb"]
-[ext_resource type="Script" path="res://scripts/quitButton.gd" id="4_1sn1l"]
-[ext_resource type="Script" path="res://scripts/death_screen.gd" id="4_ola1x"]
-[ext_resource type="Script" path="res://scripts/restartButton.gd" id="5_hq716"]
-[ext_resource type="PackedScene" uid="uid://cl7y2o5h5ider" path="res://meat.tscn" id="7_oll8b"]
+[ext_resource type="Script" path="res://quitButton.gd" id="4_1sn1l"]
+[ext_resource type="Script" path="res://death_screen.gd" id="4_ola1x"]
+[ext_resource type="Script" path="res://restartButton.gd" id="5_hq716"]
+[ext_resource type="PackedScene" uid="uid://bo5xvqsgidj7p" path="res://scythe.tscn" id="7_jucny"]
+[ext_resource type="Script" path="res://meat_counter.gd" id="8_5gpti"]
+[ext_resource type="PackedScene" path="res://meat.tscn" id="8_e5wcg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -86,17 +88,10 @@ texture = ExtResource("1_jxa22")
 sources/0 = SubResource("TileSetAtlasSource_184ij")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7in1g"]
-radius = 335.531
+radius = 350.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eisom"]
 radius = 125.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bepol"]
-size = Vector2(116.607, 106.36)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_au3yr"]
-custom_solver_bias = 1.0
-size = Vector2(1800, 1800)
 
 [node name="main" type="Node2D"]
 scale = Vector2(100, 100)
@@ -152,10 +147,10 @@ text = "You died!"
 
 [node name="QuitButton" type="Button" parent="Player/DeathScreen"]
 layout_mode = 0
-offset_left = -20.0
-offset_top = 65.0
-offset_right = 22.0
-offset_bottom = 96.0
+offset_left = -20.45
+offset_top = 64.68
+offset_right = 21.55
+offset_bottom = 95.68
 text = "Quit"
 script = ExtResource("4_1sn1l")
 
@@ -168,32 +163,47 @@ offset_bottom = 50.95
 text = "Restart"
 script = ExtResource("5_hq716")
 
+[node name="AttackNode" type="Node2D" parent="Player"]
+
+[node name="Scythe" parent="Player/AttackNode" instance=ExtResource("7_jucny")]
+scale = Vector2(50, 50)
+
+[node name="UI" type="Control" parent="Player"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -571.0
+offset_top = -318.0
+offset_right = -413.0
+offset_bottom = -212.0
+
+[node name="MeatCounter" type="Label" parent="Player/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("8_5gpti")
+
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.1
 autostart = true
 
 [node name="ShopZone" type="Area2D" parent="."]
-visible = false
-collision_layer = 512
-collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShopZone"]
-shape = SubResource("RectangleShape2D_bepol")
-debug_color = Color(0, 0.648099, 0.191628, 0.42)
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="ShopZone"]
+polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
 
 [node name="Zone1" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone1"]
-shape = SubResource("RectangleShape2D_au3yr")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone1"]
+polygon = PackedVector2Array(-450, -450, 450, -450, 450, 450, -450, 450)
 
 [node name="Zone2" type="Area2D" parent="."]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zone2"]
-shape = SubResource("RectangleShape2D_au3yr")
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone2"]
+polygon = PackedVector2Array(-900, -900, 900, -900, 900, 900, -900, 900)
 
-[node name="meatSprite" parent="." instance=ExtResource("7_oll8b")]
-position = Vector2(-78.53, 16.31)
+[node name="meatSprite" parent="." instance=ExtResource("8_e5wcg")]
+position = Vector2(-156.04, 55.02)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

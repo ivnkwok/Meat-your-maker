@@ -4,8 +4,8 @@ var frames = texture.get_width() / region_rect.size.x
 #var player_node = Node == null
 var position_offset = 0 #to make sure we know the center of the random sprite
 var movespeed = 10
-var reach = 4000
-var player_distance = 9999 #or the meat would instantly fly towards player
+var reach = 50
+var player_distance
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,5 +31,6 @@ func _process(delta: float) -> void:
 		movespeed += 5
 	if(abs(player_distance) < 5): #meat obtained
 		print("collected meat")
+		Global.meatCount+=1
 		queue_free()
 	pass

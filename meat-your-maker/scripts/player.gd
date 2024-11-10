@@ -42,6 +42,6 @@ func _process(delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var dmg = Global.enemyData[body.enemyName]["ATK"]
 	hp -= dmg
-	body.global_position.x = move_toward(body.global_position.x, Global.playerPos.x, -700)
-	body.global_position.y = move_toward(body.global_position.y, Global.playerPos.y, -700)
+	body.position.x = move_toward(body.position.x, Global.playerPos.x, -10)
+	body.position.y = move_toward(body.position.y, Global.playerPos.y, -10)
 	pass # Replace with function body.
