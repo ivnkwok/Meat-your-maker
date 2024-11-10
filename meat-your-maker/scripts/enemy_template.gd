@@ -16,13 +16,12 @@ enum {
 func _ready() -> void:
 	currentHP = Global.enemyData[enemyName]["MaxHP"]
 	
-	
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	print(position)
+	currentHP -= 1
 	if(currentHP>0):
 		match state:
 			IDLE:
@@ -30,14 +29,14 @@ func _process(delta: float) -> void:
 				pass
 			ACTIVE:
 				sprite.play("active")
-				if (Global.playerPos.x > global_position.x):
+				if (Global.playerPos.x > position.x):
 					$AnimatedSprite2D.flip_h = true
 				else:
 					$AnimatedSprite2D.flip_h = false
-				global_position.x = move_toward(position.x, Global.playerPos.x, Global.enemyData[enemyName]["SPD"])
-				global_position.y = move_toward(position.y, Global.playerPos.y, Global.enemyData[enemyName]["SPD"])
+				position.x = move_toward(position.x, Global.playerPos.x, Global.enemyData[enemyName]["SPD"]*delta)
+				position.y = move_toward(position.y, Global.playerPos.y, Global.enemyData[enemyName]["SPD"]*delta)
 				
-		if (global_position.distance_to(Global.playerPos) > 350*100):
+		if (position.distance_to(Global.playerPos) > 300):
 			Global.mobCount-=1
 			queue_free()
 	else: #dead
@@ -56,7 +55,6 @@ func spawn_meat(position: Vector2) -> void:
 	var meat_scene = load("res://meat.tscn")
 	var meat = meat_scene.instantiate()
 	meat.position = position/100
-	print("spawned meat at:", meat.position)
 	get_parent().add_child(meat)
 	Global.mobCount-=1
 	queue_free()
