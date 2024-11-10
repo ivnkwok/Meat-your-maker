@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://br37r2e4mylan"]
+[gd_scene load_steps=21 format=4 uid="uid://br37r2e4mylan"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://xy65inxg1dvg" path="res://sprites/grass.png" id="1_jxa22"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bo5xvqsgidj7p" path="res://scythe.tscn" id="7_jucny"]
 [ext_resource type="Script" path="res://scripts/meat_counter.gd" id="8_5gpti"]
 [ext_resource type="Script" path="res://sell_meat_button.gd" id="10_ob4d2"]
+[ext_resource type="Script" path="res://attack_node.gd" id="11_45brj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -241,6 +242,7 @@ text = "Sell Meat"
 script = ExtResource("10_ob4d2")
 
 [node name="SpawnRadius" type="Area2D" parent="Player"]
+visible = false
 collision_layer = 0
 collision_mask = 15360
 
@@ -250,6 +252,7 @@ one_way_collision_margin = 0.0
 debug_color = Color(0.66838, 0.506492, 0.170868, 0.42)
 
 [node name="AntispawnRadius" type="Area2D" parent="Player"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AntispawnRadius"]
 shape = SubResource("CircleShape2D_eisom")
@@ -289,6 +292,7 @@ text = "Restart"
 script = ExtResource("5_hq716")
 
 [node name="AttackNode" type="Node2D" parent="Player"]
+script = ExtResource("11_45brj")
 
 [node name="RotationNode" type="Node2D" parent="Player/AttackNode"]
 
@@ -297,6 +301,7 @@ script = ExtResource("5_hq716")
 [node name="Area2D" type="Area2D" parent="Player/AttackNode/RotationNode/Scythe"]
 collision_layer = 8
 collision_mask = 2
+collision_priority = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackNode/RotationNode/Scythe/Area2D"]
 shape = SubResource("RectangleShape2D_7b8xj")
@@ -324,4 +329,5 @@ visible = false
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone2"]
 polygon = PackedVector2Array(-900, -900, 900, -900, 900, 900, -900, 900)
 
+[connection signal="body_entered" from="Player/AttackNode/RotationNode/Scythe/Area2D" to="Player/AttackNode" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

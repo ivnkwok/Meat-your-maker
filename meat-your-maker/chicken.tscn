@@ -103,7 +103,7 @@ shape = SubResource("CapsuleShape2D_addpu")
 material = SubResource("ShaderMaterial_khbxe")
 sprite_frames = SubResource("SpriteFrames_63ruq")
 animation = &"active"
-frame_progress = 0.182819
+frame_progress = 0.725032
 
 [node name="HitflashAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

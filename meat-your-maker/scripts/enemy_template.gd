@@ -38,15 +38,15 @@ func _process(delta: float) -> void:
 		spawn_meat(global_position)
 
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	print(body.enemyName)
 	if (body.is_in_group("enemy")):
 		body.position.x = move_toward(body.position.x, position.x, -5)
 		body.position.y = move_toward(body.position.y, position.y, -5)
-	elif (body.is_in_group("attack")):
-		currentHP -= Global.attackData[body.name]["ATK"]
 	else:
-		currentHP -= 1
-		hitflashPlayer.play("hitflash")
+		take_damage(1)
+
+func take_damage(amount: int):
+	currentHP -= amount
+	hitflashPlayer.play("hitflash")
 
 func spawn_meat(position: Vector2) -> void:
 	var meat_scene = load("res://meat.tscn")
