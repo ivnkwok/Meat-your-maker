@@ -8,7 +8,8 @@ extends Node2D
 @onready var zone2Area = $Zone2/CollisionShape2D
 
 @onready var attackNode = $Player/AttackNode
-@onready var scythe = $Player/AttackNode/Scythe
+@onready var rotationNode = $Player/AttackNode/RotationNode
+@onready var scythe = $Player/AttackNode/RotationNode/Scythe
 var swing = 1
 var range = 125
 
@@ -23,15 +24,22 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
-	if(Global.playerDirection.x > 0): #flips the scythe to face the right direction
-		scythe.position.x = abs(scythe.position.x)
-	elif(Global.playerDirection.x < 0):
-		scythe.position.x = -abs(scythe.position.x)
-	if (attackNode.rotation_degrees > 50 && swing > 0):
+	#if(Global.playerDirection.x > 0): #flips the scythe to face the right direction
+		#scythe.position.x = abs(scythe.position.x)
+	#elif(Global.playerDirection.x < 0):
+		#scythe.position.x = -abs(scythe.position.x)
+	
+	attackNode.look_at(get_global_mouse_position())
+	if (get_local_mouse_position().distance_to(Global.playerPos) < range/2):
+		scythe.position.x = abs(get_local_mouse_position().distance_to(Global.playerPos)*2)
+	else:
+		scythe.position.x = range
+	
+	if (rotationNode.rotation_degrees > 40 && swing > 0):
 		swing = -0.03
-	if (attackNode.rotation_degrees < -50 && swing < 0):
+	if (rotationNode.rotation_degrees < -40 && swing < 0):
 		swing = 0.03
-	attackNode.rotate(swing)
+	rotationNode.rotate(swing)
 	pass
 
 func _on_timer_timeout() -> void:
@@ -59,19 +67,16 @@ func zone1spawn(pos: Vector2) -> void:
 	var rand = randf()
 	var mob
 	var mobs = {
-		0:"res://cow.tscn",
-		1:"res://chicken.tscn",
-		2:"res://lizard.tscn",
-		3:"res://crocodile.tscn"
+		0:"res://chicken.tscn",
+		1:"res://lizard.tscn",
+		2:"res://crocodile.tscn"
 	}
-	if (rand < 0.3):
+	if (rand < 0.5):
 		mob = mobs[0]
-	elif (rand < 0.6):
-		mob = mobs[1]
 	elif (rand < 0.9):
-		mob = mobs[2]
+		mob = mobs[1]
 	else:
-		mob = mobs[3]
+		mob = mobs[2]
 	var mobScene = load(mob)
 	var spawn = mobScene.instantiate()
 	spawn.position = pos

@@ -12,7 +12,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if(hp>0):
+	if (hp <= 0):
+		Global.paused = true
+		sprite.visible = false
+		hpBar.visible = false
+		hpContainer.visible = false
+	else:
 		#update position
 		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
 		position += direction * delta * 50
@@ -33,13 +38,6 @@ func _process(delta: float) -> void:
 			
 		#set hp bar
 		hpBar.size.x = (float(hp) / Global.playerMaxHP) * (hpContainer.size.x - 2)
-
-		
-	else:
-		#TODO: game over screen & death
-		sprite.visible = false
-		hpBar.visible = false
-		hpContainer.visible = false
 		pass
 	pass
 

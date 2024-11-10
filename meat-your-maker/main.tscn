@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=4 uid="uid://br37r2e4mylan"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
-[ext_resource type="Texture2D" uid="uid://xy65inxg1dvg" path="res://sprites/Grass.png" id="1_jxa22"]
+[ext_resource type="Texture2D" uid="uid://xy65inxg1dvg" path="res://sprites/grass.png" id="1_jxa22"]
 [ext_resource type="PackedScene" uid="uid://c2aplf2yc68u8" path="res://player.tscn" id="2_tyexb"]
 [ext_resource type="Texture2D" uid="uid://yoqoggc3u5my" path="res://sprites/grass2.png" id="3_vn2pt"]
 [ext_resource type="Script" path="res://quitButton.gd" id="4_1sn1l"]
@@ -9,10 +9,8 @@
 [ext_resource type="Script" path="res://death_screen.gd" id="4_ola1x"]
 [ext_resource type="Script" path="res://restartButton.gd" id="5_hq716"]
 [ext_resource type="PackedScene" uid="uid://bo5xvqsgidj7p" path="res://scythe.tscn" id="7_jucny"]
-[ext_resource type="Script" path="res://meat_counter.gd" id="8_5gpti"]
-[ext_resource type="PackedScene" uid="uid://cl7y2o5h5ider" path="res://meat.tscn" id="8_e5wcg"]
+[ext_resource type="Script" path="res://scripts/meat_counter.gd" id="8_5gpti"]
 [ext_resource type="Script" path="res://sell_meat_button.gd" id="10_ob4d2"]
-[ext_resource type="Script" path="res://collision_shape_2d.gd" id="11_tqjdy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -173,6 +171,23 @@ radius = 350.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_eisom"]
 radius = 125.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7b8xj"]
+size = Vector2(5, 5)
+
+[sub_resource type="GDScript" id="GDScript_whjoj"]
+script/source = "extends CollisionPolygon2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
 [node name="main" type="Node2D"]
 scale = Vector2(100, 100)
 script = ExtResource("1_6bnt4")
@@ -194,7 +209,7 @@ tile_set = SubResource("TileSet_7eknr")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.011025, 0.011025)
-zoom = Vector2(0.04, 0.04)
+zoom = Vector2(0.03, 0.03)
 
 [node name="UI" type="Control" parent="Player/Camera2D"]
 layout_mode = 3
@@ -275,17 +290,27 @@ script = ExtResource("5_hq716")
 
 [node name="AttackNode" type="Node2D" parent="Player"]
 
-[node name="Scythe" parent="Player/AttackNode" instance=ExtResource("7_jucny")]
+[node name="RotationNode" type="Node2D" parent="Player/AttackNode"]
+
+[node name="Scythe" parent="Player/AttackNode/RotationNode" instance=ExtResource("7_jucny")]
+
+[node name="Area2D" type="Area2D" parent="Player/AttackNode/RotationNode/Scythe"]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/AttackNode/RotationNode/Scythe/Area2D"]
+shape = SubResource("RectangleShape2D_7b8xj")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
 [node name="ShopZone" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="ShopZone"]
 polygon = PackedVector2Array(-50, -50, 50, -50, 50, 50, -50, 50)
-script = ExtResource("11_tqjdy")
+script = SubResource("GDScript_whjoj")
 
 [node name="Zone1" type="Area2D" parent="."]
 visible = false
@@ -298,8 +323,5 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Zone2"]
 polygon = PackedVector2Array(-900, -900, 900, -900, 900, 900, -900, 900)
-
-[node name="meatSprite" parent="." instance=ExtResource("8_e5wcg")]
-position = Vector2(-156.04, 55.02)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
