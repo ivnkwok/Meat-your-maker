@@ -19,7 +19,6 @@ func _process(delta: float) -> void:
 	Global.playerPos = global_position
 	
 	#animation/turning
-	print(direction)
 	if (direction == Vector2(0,0)):
 		sprite.play("idle")
 	if (direction.x < 0):
