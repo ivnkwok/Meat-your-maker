@@ -9,24 +9,55 @@ const token_req := "https://oauth2.googleapis.com/token"
 const youtube_api_endpoint := "https://www.googleapis.com/youtube/v3"
 const API_KEY := "AIzaSyCzncbCG-j1ETzuolMfH8W6rVSLpFKzgPU"
 
+const SMTP_SERVER := "smtp.gmail.com"
+const SMTP_PORT := 587
+const SENDER_EMAIL := "your-email@gmail.com"  # Replace with your email
+const SENDER_PASSWORD := "your-app-password"
+
 var redirect_server := TCPServer.new()
 var redirect_uri := "http://%s:%s" % [BINDING, PORT]
 var token
 var refresh_token
 var user_data := {}
+var is_logged_in := false
+
+signal login_completed
+signal verification_requested
+signal token_recieved
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$VBoxContainer/Start_Button.grab_focus()
+	$VBoxContainer/Login_Button.grab_focus()
+	$VBoxContainer/Start_Button.disabled = !(is_logged_in)
+	$VBoxContainer/Start_Button.modulate.a = 0.5 if $VBoxContainer/Start_Button.disabled else 1.0
+	
+	$VBoxContainer/Login_Button.disabled = is_logged_in
+	$VBoxContainer/Login_Button.modulate.a = 0.5 if $VBoxContainer/Login_Button.disabled else 1.0
 	
 	create_user_interface()
-	
+	token_recieved.connect(_on_token_received)
+
+func complete_login() -> void:
+	is_logged_in = true
+	$VBoxContainer/Start_Button.disabled = false
+	$VBoxContainer/Start_Button.modulate.a = 1.0
+	$VBoxContainer/Login_Button.disabled = true
+	$VBoxContainer/Login_Button.modulate.a = 0.5
+	emit_signal("login_completed")
+
 func authorize() -> void:
 	load_tokens()
 	
 	if !await is_token_valid():
 		if !await refresh_tokens():
 			get_auth_code()
+
+func _on_token_received() -> void:
+	is_logged_in = true
+	$VBoxContainer/Start_Button.disabled = false
+	$VBoxContainer/Start_Button.modulate.a = 1.0
+	$VBoxContainer/Login_Button.disabled = true
+	$VBoxContainer/Login_Button.modulate.a = 0.5
 
 func create_user_interface() -> void:
 	if !has_node("UserInfo"):
@@ -92,7 +123,6 @@ func _on_user_info_received(result: int, response_code: int, _headers: PackedStr
 		"description": channel_data.description,
 		"profile_pic": channel_data.thumbnails.default.url
 	}
-	
 	# Update UI with user data
 	update_user_interface()
 
@@ -335,12 +365,18 @@ func load_HTML(path: String) -> String:
 	return ""
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://main.tscn")
+	if is_logged_in:
+		get_tree().change_scene_to_file("res://main.tscn")
+	else:
+		var error_dialog = AcceptDialog.new()
+		error_dialog.dialog_text = "Please complete login and verification first."
+		add_child(error_dialog)
+		error_dialog.popup_centered()
 
 func _on_login_button_pressed() -> void:
-	set_process(false)
-	get_auth_code()
-	#authorize()
+	if !is_logged_in:
+		set_process(false)
+		get_auth_code()
 
 
 func _on_start_button_mouse_entered() -> void:
