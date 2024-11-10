@@ -1,4 +1,4 @@
 extends enemy
 
-func _ready():
+func _init() -> void:
 	enemyName = "crocodile"
