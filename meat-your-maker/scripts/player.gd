@@ -16,8 +16,8 @@ func _process(delta: float) -> void:
 	
 	#update position
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
-	global_position += direction * delta * 5000
-	Global.playerPos = global_position
+	position += direction * delta * 50
+	Global.playerPos = position
 	
 	#animation/turning
 	if (direction == Vector2(0,0)):

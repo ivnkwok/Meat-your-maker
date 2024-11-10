@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_6bnt4"]
 [ext_resource type="Texture2D" uid="uid://btwnl8cxj1ky3" path="res://sprites/Grass.png" id="1_jxa22"]
 [ext_resource type="PackedScene" uid="uid://c2aplf2yc68u8" path="res://player.tscn" id="2_tyexb"]
-[ext_resource type="Script" path="res://quitButton.gd" id="4_1sn1l"]
-[ext_resource type="Script" path="res://death_screen.gd" id="4_ola1x"]
-[ext_resource type="Script" path="res://restartButton.gd" id="5_hq716"]
-[ext_resource type="PackedScene" uid="uid://43cofld1p3rm" path="res://scythe.tscn" id="7_jucny"]
+
+[ext_resource type="Script" path="res://scripts/quitButton.gd" id="4_1sn1l"]
+[ext_resource type="Script" path="res://scripts/death_screen.gd" id="4_ola1x"]
+[ext_resource type="Script" path="res://scripts/restartButton.gd" id="5_hq716"]
+[ext_resource type="PackedScene" uid="uid://cl7y2o5h5ider" path="res://meat.tscn" id="7_oll8b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_184ij"]
 texture = ExtResource("1_jxa22")
@@ -119,7 +120,7 @@ tile_set = SubResource("TileSet_7eknr")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.011025, 0.011025)
-zoom = Vector2(0.04, 0.04)
+zoom = Vector2(0.02, 0.02)
 
 [node name="SpawnRadius" type="Area2D" parent="Player"]
 collision_layer = 0
@@ -152,10 +153,10 @@ text = "You died!"
 
 [node name="QuitButton" type="Button" parent="Player/DeathScreen"]
 layout_mode = 0
-offset_left = -20.45
-offset_top = 64.68
-offset_right = 21.55
-offset_bottom = 95.68
+offset_left = -20.0
+offset_top = 65.0
+offset_right = 22.0
+offset_bottom = 96.0
 text = "Quit"
 script = ExtResource("4_1sn1l")
 
@@ -174,7 +175,7 @@ script = ExtResource("5_hq716")
 scale = Vector2(50, 50)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.5
 autostart = true
 
 [node name="ShopZone" type="Area2D" parent="."]
@@ -197,5 +198,8 @@ visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zone2"]
 shape = SubResource("RectangleShape2D_au3yr")
+
+[node name="meatSprite" parent="." instance=ExtResource("7_oll8b")]
+position = Vector2(-78.53, 16.31)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
