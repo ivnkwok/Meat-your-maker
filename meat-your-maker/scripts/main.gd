@@ -1,10 +1,12 @@
 extends Node2D
 
-@onready var spawnRadius = $Player/SpawnRadius/CollisionShape2D.shape.radius
-@onready var noSpawnRadius = $Player/AntispawnRadius/CollisionShape2D.shape.radius
+@onready var spawnRadius = $Player/SpawnRadius/CollisionShape2D.shape.radius * 100
+@onready var noSpawnRadius = $Player/AntispawnRadius/CollisionShape2D.shape.radius * 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	for i in range(100):
+		zone1spawn()
 	pass # Replace with function body.
 
 
@@ -15,7 +17,7 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	zone1spawn()
+	
 	pass # Replace with function body.
 
 func zone1spawn() -> void:
@@ -23,17 +25,13 @@ func zone1spawn() -> void:
 	var zone1 = $Zone1/CollisionShape2D
 	var zone2 = $Zone2/CollisionShape2D
 	var angle = randf() * 2 * PI
-	var r = randi_range(noSpawnRadius, spawnRadius) * sqrt(randf())
+	var r = randi_range(noSpawnRadius, spawnRadius)
 	
 	var spawnerScene = load("res://zone_1_spawner.tscn")
 	var spawner = spawnerScene.instantiate()
-	print(spawner)
-	var x = (Global.playerPos.x + (r * cos(angle)))
-	var y = (Global.playerPos.y + r * sin(angle))
-	spawner.position = Vector2(x,y) - Global.playerPos
+	var x = (Global.playerPos.x + r * cos(angle))/100
+	var y = (Global.playerPos.y + r * sin(angle))/100
+	spawner.global_position = Vector2(x,y)
 	add_child(spawner)
-	
-	print(spawner.global_position)
-	print(Global.playerPos)
 	
 	

@@ -85,7 +85,7 @@ sources/0 = SubResource("TileSetAtlasSource_184ij")
 radius = 335.531
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eisom"]
-radius = 124.088
+radius = 125.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bepol"]
 size = Vector2(116.607, 106.36)
@@ -97,6 +97,7 @@ size = Vector2(1800, 1800)
 [node name="main" type="Node2D"]
 scale = Vector2(100, 100)
 script = ExtResource("1_6bnt4")
+metadata/_edit_horizontal_guides_ = [-40271.0]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -88.0
@@ -114,7 +115,7 @@ tile_set = SubResource("TileSet_7eknr")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.011025, 0.011025)
-zoom = Vector2(0.001, 0.001)
+zoom = Vector2(0.005, 0.005)
 
 [node name="SpawnRadius" type="Area2D" parent="Player"]
 collision_layer = 0
