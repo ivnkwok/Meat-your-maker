@@ -28,11 +28,10 @@ func _process(delta: float) -> void:
 	player_distance = Vector2(Global.playerPos.x, Global.playerPos.y).distance_to(position)
 	#print("meat distance from player:",player_distance)
 			
-	if(abs(player_distance) < reach): #meat flying at player
+	if(abs(player_distance) < reach * (1 + Global.itemUpgrades["gloves"]["Level"]/10.0)): #meat flying at player
 		position = position.move_toward(Global.playerPos, movespeed*delta)
 		movespeed += 5
 	if(abs(player_distance) < 5): #meat obtained
-		print("collected meat")
 		Global.meatCount+=1
 		queue_free()
 	pass

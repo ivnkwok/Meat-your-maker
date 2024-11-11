@@ -32,9 +32,9 @@ func _process(delta: float) -> void:
 		else:
 			scythe.position.x = range
 		if (rotationNode.rotation_degrees > 40 && swing > 0):
-			swing = -0.03
+			swing = -0.03 - Global.itemUpgrades["bracers"]["Level"]/100.0
 		if (rotationNode.rotation_degrees < -40 && swing < 0):
-			swing = 0.03
+			swing = 0.03 + Global.itemUpgrades["bracers"]["Level"]/100.0
 		rotationNode.rotate(swing)
 	pass
 
@@ -77,8 +77,27 @@ func zone1spawn(pos: Vector2) -> void:
 	var spawn = mobScene.instantiate()
 	spawn.position = pos
 	add_child(spawn)
-	
-func _on_shop_zone_body_entered(body: Node2D) -> void:
+
+func zone2spawn(pos: Vector2) -> void:
+	var rand = randf()
+	var mob
+	var mobs = {
+		0:"res://chicken.tscn",
+		1:"res://lizard.tscn",
+		2:"res://crocodile.tscn"
+	}
+	if (rand < 0.5):
+		mob = mobs[0]
+	elif (rand < 0.9):
+		mob = mobs[1]
+	else:
+		mob = mobs[2]
+	var mobScene = load(mob)
+	var spawn = mobScene.instantiate()
+	spawn.position = pos
+	add_child(spawn)
+
+func _on_cave_zone_body_entered(body: Node2D) -> void:
 	if (body.name == "Player"):
 		var shop = $ShopGUI/Shop
 		Global.paused = true

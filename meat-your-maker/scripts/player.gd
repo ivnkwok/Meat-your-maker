@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var meatContainer = $MeatBarContainer
 @onready var meatBar = $MeatBarContainer/MeatBar
 
-
+var spd = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,6 +19,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if (Global.paused):
+		meatTimer.paused = true
+	else: 
+		meatTimer.paused = false
 	if (Global.playerHP <= 0 || Global.doFlood):
 		Global.playerHP = 0
 		Global.paused = true
@@ -30,7 +34,7 @@ func _process(delta: float) -> void:
 	elif (!Global.paused):
 		#update position
 		var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down").normalized()
-		position += direction * delta * 50
+		position += direction * delta * spd * (1 + Global.itemUpgrades["boots"]["Level"]/10.0)
 		Global.playerDirection = direction
 		Global.playerPos = position
 		
@@ -47,7 +51,6 @@ func _process(delta: float) -> void:
 			sprite.play("active")
 			
 		#set hp bar
-		Global.playerMaxHP += Global.itemUpgrades["armor"]["Level"]
 		hpBar.size.x = (float(Global.playerHP) / Global.playerMaxHP) * (hpContainer.size.x - 2)
 		pass
 	meatBar.size.x = (float(Global.meatPile) / Global.maxMeatPile) * (meatContainer.size.x - 2)
@@ -61,12 +64,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
 func _on_meat_timer_timeout() -> void:
-	Global.meatPile-=1
+	Global.meatPile -= 1
+	Global.stage += 1
+	
 	if (Global.meatPile <= 0):
 		Global.doFlood = true
 	print(Global.meatPile, "/", Global.maxMeatPile, ",",meatTimer.wait_time)
 	
-	meatTimer.wait_time *= 0.95
+	meatTimer.wait_time *= 0.9
 	meatTimer.start()
 	
 	pass # Replace with function body.
