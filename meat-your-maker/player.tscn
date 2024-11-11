@@ -1,42 +1,52 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2aplf2yc68u8"]
+[gd_scene load_steps=14 format=3 uid="uid://c2aplf2yc68u8"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_1gd8r"]
-[ext_resource type="Texture2D" uid="uid://c5e8qf8b0pnan" path="res://sprites/mc.png" id="2_33eyy"]
+[ext_resource type="Texture2D" uid="uid://n2fu0qpiu7y0" path="res://sprites/mcwalking.png" id="2_vb3qh"]
+[ext_resource type="Texture2D" uid="uid://dygui0j2hxq6x" path="res://sprites/mcidle.png" id="3_3xu5p"]
+[ext_resource type="Script" path="res://meat_timer_label.gd" id="4_fwglh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ryl15"]
-atlas = ExtResource("2_33eyy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1bkc"]
+atlas = ExtResource("2_vb3qh")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkp46"]
+atlas = ExtResource("2_vb3qh")
 region = Rect2(64, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t11q3"]
-atlas = ExtResource("2_33eyy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_f71pd"]
+atlas = ExtResource("2_vb3qh")
 region = Rect2(128, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2b56c"]
-atlas = ExtResource("2_33eyy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_f72rr"]
+atlas = ExtResource("2_vb3qh")
 region = Rect2(192, 0, 64, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dx85t"]
-atlas = ExtResource("2_33eyy")
-region = Rect2(256, 0, 64, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p8hgc"]
-atlas = ExtResource("2_33eyy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_omm2e"]
+atlas = ExtResource("3_3xu5p")
 region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ireqa"]
+atlas = ExtResource("3_3xu5p")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p53ss"]
+atlas = ExtResource("3_3xu5p")
+region = Rect2(128, 0, 64, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wjxwv"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ryl15")
+"texture": SubResource("AtlasTexture_j1bkc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t11q3")
+"texture": SubResource("AtlasTexture_kkp46")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2b56c")
+"texture": SubResource("AtlasTexture_f71pd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dx85t")
+"texture": SubResource("AtlasTexture_f72rr")
 }],
 "loop": true,
 "name": &"active",
@@ -44,7 +54,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p8hgc")
+"texture": SubResource("AtlasTexture_omm2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ireqa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p53ss")
 }],
 "loop": true,
 "name": &"idle",
@@ -62,22 +78,21 @@ script = ExtResource("1_1gd8r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wjxwv")
 animation = &"active"
+frame_progress = 0.822055
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.125, 2)
 shape = SubResource("RectangleShape2D_fpup4")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_mask = 65534
+collision_mask = 65526
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-3, 2)
 shape = SubResource("RectangleShape2D_fpup4")
 
 [node name="HP Container" type="ColorRect" parent="."]
-offset_left = -23.0
+offset_left = -18.0
 offset_top = -50.0
-offset_right = 19.0
+offset_right = 24.0
 offset_bottom = -47.0
 color = Color(0.442911, 0.442911, 0.442911, 1)
 
@@ -91,6 +106,38 @@ offset_top = -0.5
 offset_right = 41.0
 offset_bottom = 0.5
 grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="MeatBarContainer" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -56.0
+offset_right = 24.0
+offset_bottom = -52.0
+color = Color(0.305882, 0, 0, 1)
+
+[node name="MeatBar" type="ColorRect" parent="MeatBarContainer"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 2.0
 color = Color(1, 0, 0, 1)
 
+[node name="MeatTimerLabel" type="Label" parent="MeatBarContainer"]
+offset_left = -122.0
+offset_top = -102.0
+offset_right = 5823.0
+offset_bottom = 993.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+text = "The Meat God hungers..."
+horizontal_alignment = 1
+vertical_alignment = 2
+script = ExtResource("4_fwglh")
+
+[node name="MeatTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="MeatTimer" to="." method="_on_meat_timer_timeout"]

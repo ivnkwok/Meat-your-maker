@@ -1,0 +1,255 @@
+[gd_scene load_steps=26 format=3 uid="uid://diapoii2xab0w"]
+
+[ext_resource type="Texture2D" uid="uid://2h2s0w3es150" path="res://sprites/Coin.png" id="1_0fry3"]
+[ext_resource type="Script" path="res://shop.gd" id="1_pt1xy"]
+[ext_resource type="Texture2D" uid="uid://bvm2htaaw7cri" path="res://sprites/maker.png" id="2_xtt0w"]
+[ext_resource type="Texture2D" uid="uid://caqnvmrutj8ip" path="res://sprites/meats.png" id="3_p6viw"]
+[ext_resource type="Texture2D" uid="uid://dew4t3awv6ibu" path="res://sprites/carvingknife.png" id="4_uj3rl"]
+[ext_resource type="Texture2D" uid="uid://brfqjdbhrqixn" path="res://sprites/gloves.png" id="5_crhoh"]
+[ext_resource type="Script" path="res://scripts/knife_upgrade_button.gd" id="6_gl7gu"]
+[ext_resource type="Texture2D" uid="uid://b40xhexflyhlr" path="res://sprites/boots.png" id="6_hupfl"]
+[ext_resource type="Texture2D" uid="uid://drqfgpu7hixvo" path="res://sprites/armor.png" id="6_lcyub"]
+[ext_resource type="Texture2D" uid="uid://8femtk2bj6bo" path="res://sprites/bracers.png" id="7_14hnn"]
+[ext_resource type="Texture2D" uid="uid://c7333l05prdmb" path="res://sprites/sword.png" id="7_145tp"]
+[ext_resource type="Script" path="res://scripts/armor_upgrade_button.gd" id="8_t28bq"]
+[ext_resource type="Script" path="res://scripts/bracers_upgrade_button.gd" id="10_6ke3h"]
+[ext_resource type="Script" path="res://scripts/gloves_upgrade_button.gd" id="12_8bv4j"]
+[ext_resource type="Script" path="res://scripts/boots_upgrade_button.gd" id="14_mndn3"]
+[ext_resource type="Script" path="res://scripts/sword_upgrade_button.gd" id="16_ptucd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wq4bn"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7bpx"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuygw"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t38s4"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biccs"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7n3a"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76tga"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6w83c"]
+atlas = ExtResource("3_p6viw")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1dtdq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wq4bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7bpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uuygw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t38s4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biccs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7n3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76tga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6w83c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="ColorRect" type="ColorRect"]
+z_index = 5
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -290.0
+offset_top = -162.5
+offset_right = 290.0
+offset_bottom = 162.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.241156, 0.241156, 0.241156, 1)
+script = ExtResource("1_pt1xy")
+
+[node name="SellMeatButton" type="Button" parent="."]
+layout_mode = 1
+offset_left = 499.0
+offset_top = 302.0
+offset_right = 3016.0
+offset_bottom = 856.0
+scale = Vector2(0.03, 0.03)
+theme_override_font_sizes/font_size = 400
+text = "Sell All Meat"
+
+[node name="SacrificeMeatButton" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 299.0
+offset_right = 3010.0
+offset_bottom = 920.0
+scale = Vector2(0.03, 0.03)
+tooltip_text = "Fulfill meat quota"
+theme_override_font_sizes/font_size = 400
+text = "Sacrifice Meat"
+
+[node name="ExitShopButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 549.92
+offset_top = 0.139995
+offset_right = 579.92
+offset_bottom = 31.14
+text = "x"
+
+[node name="Coin" type="Sprite2D" parent="."]
+position = Vector2(11.14, 11.22)
+scale = Vector2(1.13125, 1.13125)
+texture = ExtResource("1_0fry3")
+
+[node name="MeatCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 21.4
+offset_top = 20.1
+offset_right = 1023.4
+offset_bottom = 566.1
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+text = ": 0"
+
+[node name="CoinCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.82
+offset_top = -1.56
+offset_right = 1022.82
+offset_bottom = 544.44
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+text = ": 0"
+
+[node name="Maker" type="Sprite2D" parent="."]
+position = Vector2(290, 197.64)
+scale = Vector2(4, 4)
+texture = ExtResource("2_xtt0w")
+
+[node name="MakerDialogue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 216.1
+offset_top = 297.54
+offset_right = 3173.1
+offset_bottom = 843.54
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 400
+text = "MEAAAAAAT!!!"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(11.6, 36.5)
+scale = Vector2(1.371, 1.371)
+sprite_frames = SubResource("SpriteFrames_1dtdq")
+frame_progress = 0.0788672
+
+[node name="SwordUpgradeButton" type="Button" parent="." groups=["button"]]
+offset_left = 16.0
+offset_top = 201.5
+offset_right = 104.0
+offset_bottom = 244.5
+tooltip_text = "sword"
+icon = ExtResource("7_145tp")
+script = ExtResource("16_ptucd")
+
+[node name="ArmorUpgradeButton" type="Button" parent="." groups=["button"]]
+z_index = 20
+layout_mode = 0
+offset_left = 52.0
+offset_top = 93.5
+offset_right = 120.0
+offset_bottom = 159.5
+scale = Vector2(0.8, 0.8)
+tooltip_text = "armor"
+icon = ExtResource("6_lcyub")
+script = ExtResource("8_t28bq")
+
+[node name="BracersUpgradeButton" type="Button" parent="." groups=["button"]]
+z_index = 20
+offset_left = 108.0
+offset_top = 27.5
+offset_right = 151.0
+offset_bottom = 70.5
+tooltip_text = "bracers"
+icon = ExtResource("7_14hnn")
+script = ExtResource("10_6ke3h")
+
+[node name="GlovesUpgradeButton" type="Button" parent="." groups=["button"]]
+z_index = 20
+offset_left = 394.0
+offset_top = 26.5
+offset_right = 437.0
+offset_bottom = 69.5
+tooltip_text = "gloves"
+icon = ExtResource("5_crhoh")
+script = ExtResource("12_8bv4j")
+
+[node name="BootsUpgradeButton" type="Button" parent="." groups=["button"]]
+z_index = 20
+offset_left = 425.0
+offset_top = 102.5
+offset_right = 468.0
+offset_bottom = 145.5
+tooltip_text = "boots"
+icon = ExtResource("6_hupfl")
+script = ExtResource("14_mndn3")
+
+[node name="KnifeUpgradeButton" type="Button" parent="." groups=["button"]]
+z_index = 20
+offset_left = 442.0
+offset_top = 195.5
+offset_right = 485.0
+offset_bottom = 238.5
+tooltip_text = "carving knife"
+icon = ExtResource("4_uj3rl")
+script = ExtResource("6_gl7gu")
+
+[node name="HealButton" type="Button" parent="."]
+offset_left = 273.0
+offset_top = 16.5
+offset_right = 1340.0
+offset_bottom = 570.5
+scale = Vector2(0.03, 0.03)
+theme_override_font_sizes/font_size = 400
+text = "Heal"
+
+[connection signal="pressed" from="SellMeatButton" to="." method="_on_sell_meat_button_pressed"]
+[connection signal="pressed" from="SacrificeMeatButton" to="." method="_on_fulfill_quota_button_pressed"]
+[connection signal="pressed" from="ExitShopButton" to="." method="_on_exit_shop_button_pressed"]
+[connection signal="pressed" from="SwordUpgradeButton" to="SwordUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="ArmorUpgradeButton" to="ArmorUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="BracersUpgradeButton" to="BracersUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="GlovesUpgradeButton" to="GlovesUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="BootsUpgradeButton" to="BootsUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="KnifeUpgradeButton" to="KnifeUpgradeButton" method="_on_pressed"]
+[connection signal="pressed" from="HealButton" to="." method="_on_heal_button_pressed"]

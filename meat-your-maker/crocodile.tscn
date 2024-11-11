@@ -1,14 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://ec8n6qvqmt6x"]
+[gd_scene load_steps=13 format=3 uid="uid://ec8n6qvqmt6x"]
 
 [ext_resource type="Script" path="res://scripts/crocodile.gd" id="1_f66c3"]
 [ext_resource type="Texture2D" uid="uid://b16ugcqkg83hr" path="res://sprites/crocodilesprite.png" id="2_532mg"]
+[ext_resource type="Shader" uid="uid://dplxqfkh8nlyf" path="res://hitflash.tres" id="2_en3im"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_addpu"]
 radius = 5.0
 height = 34.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_81ays"]
-radius = 99.0051
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqfye"]
+resource_local_to_scene = true
+shader = ExtResource("2_en3im")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6qyie"]
 atlas = ExtResource("2_532mg")
@@ -44,27 +48,71 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Crocodile" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_thwdt"]
+resource_name = "hitflash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_1tu26"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mh6xv"]
+_data = {
+"RESET": SubResource("Animation_1tu26"),
+"hitflash": SubResource("Animation_thwdt")
+}
+
+[node name="Crocodile" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_f66c3")
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_addpu")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-
-[node name="Detection" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_81ays")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_sqfye")
 scale = Vector2(0.62, 0.59)
 sprite_frames = SubResource("SpriteFrames_3awal")
 animation = &"active"
 frame_progress = 0.304799
 offset = Vector2(0, 2)
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[node name="HitflashAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mh6xv")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_addpu")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

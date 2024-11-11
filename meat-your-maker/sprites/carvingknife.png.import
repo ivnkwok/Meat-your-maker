@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caqnvmrutj8ip"
-path="res://.godot/imported/meats.png-9655d5fafc75e692600052bd762c6b51.ctex"
+uid="uid://dew4t3awv6ibu"
+path="res://.godot/imported/carvingknife.png-264e04ed2c7605b65b2461245539e884.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://meats.png"
-dest_files=["res://.godot/imported/meats.png-9655d5fafc75e692600052bd762c6b51.ctex"]
+source_file="res://sprites/carvingknife.png"
+dest_files=["res://.godot/imported/carvingknife.png-264e04ed2c7605b65b2461245539e884.ctex"]
 
 [params]
 

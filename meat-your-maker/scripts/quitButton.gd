@@ -11,4 +11,4 @@ func _process(delta: float) -> void:
 
 func _on_Button_pressed():
 	# Quit the game when the button is pressed
-	get_tree().reload_current_scene()
+	get_tree().quit()

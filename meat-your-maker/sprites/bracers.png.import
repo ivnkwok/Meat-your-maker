@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xy65inxg1dvg"
-path="res://.godot/imported/grass.png-1572a75374ab70eb30be63c3ab8a61c1.ctex"
+uid="uid://8femtk2bj6bo"
+path="res://.godot/imported/bracers.png-981560f12f9afc40681522153cac7c2b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/grass.png"
-dest_files=["res://.godot/imported/grass.png-1572a75374ab70eb30be63c3ab8a61c1.ctex"]
+source_file="res://sprites/bracers.png"
+dest_files=["res://.godot/imported/bracers.png-981560f12f9afc40681522153cac7c2b.ctex"]
 
 [params]
 

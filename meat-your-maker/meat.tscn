@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl7y2o5h5ider"]
+
+[ext_resource type="Texture2D" uid="uid://caqnvmrutj8ip" path="res://sprites/meats.png" id="1_vebiv"]
+[ext_resource type="Script" path="res://scripts/meat_sprite.gd" id="2_inuqc"]
+
+[node name="meatSprite" type="Sprite2D"]
+texture = ExtResource("1_vebiv")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+script = ExtResource("2_inuqc")

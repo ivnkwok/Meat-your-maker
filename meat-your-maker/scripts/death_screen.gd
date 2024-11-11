@@ -7,8 +7,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (Global.playerHP > 0):
-		visible = false
+	if(get_parent().hp>0):
+		for child in get_children():
+			child.visible = false
 	else:
-		visible = true
+		for child in get_children():
+			child.visible = true
 	pass
