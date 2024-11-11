@@ -50,8 +50,16 @@ func take_damage(amount: int):
 
 func spawn_meat(position: Vector2) -> void:
 	var meat_scene = load("res://meat.tscn")
-	var meat = meat_scene.instantiate()
-	meat.position = position/100
-	get_parent().add_child(meat)
-	Global.mobCount-=1
+	var spread = Global.itemUpgrades["carving knife"]["Level"] * 3
+	
+	for i in range(Global.itemUpgrades["carving knife"]["Level"]):
+		var meat = meat_scene.instantiate()
+		
+		var noise_x = randf_range(-spread,spread)
+		var noise_y = randf_range(-spread,spread)
+		
+		meat.position = (position/100) + Vector2(noise_x, noise_y)
+		get_parent().add_child(meat)
+		Global.mobCount -= 1
+		
 	queue_free()

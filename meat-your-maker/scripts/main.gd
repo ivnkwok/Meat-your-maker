@@ -11,25 +11,19 @@ extends Node2D
 @onready var rotationNode = $Player/AttackNode/RotationNode
 @onready var scythe = $Player/AttackNode/RotationNode/Scythe
 
-@onready var shopGui = $Player/ShopGUI
+@onready var shopGui = $ShopGUI
 var swing = 1
 var range = 125
 
 var maxMobs = Global.maxMobs
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(noSpawnRadius)
 	scythe.position.x = range
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	#if(Global.playerDirection.x > 0): #flips the scythe to face the right direction
-		#scythe.position.x = abs(scythe.position.x)
-	#elif(Global.playerDirection.x < 0):
-		#scythe.position.x = -abs(scythe.position.x)
+	Global.maxMeatPile = max(Global.maxMeatPile, Global.meatPile)
 	if (!Global.paused):
 		#attack
 		attackNode.look_at(get_global_mouse_position())
@@ -86,6 +80,9 @@ func zone1spawn(pos: Vector2) -> void:
 	
 func _on_shop_zone_body_entered(body: Node2D) -> void:
 	if (body.name == "Player"):
+		var shop = $ShopGUI/Shop
 		Global.paused = true
-		shopGui.visible = true
+		shop.visible = true
+		shopGui.position = Global.playerPos
+		shop.changeMakerDialogue(Global.makerDialogue[randi_range(0, Global.makerDialogue.size()-1)])
 	pass # Replace with function body.
