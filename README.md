@@ -1,7 +1,7 @@
 ### Meat Your Maker
 A game where you feed meat to an insatiable meat god to stave off its wrath and prevent disaster. The more you feed, the more it demands. It additionally has 2FA with an email login and phone verification.
 
-This game was created for the [Fall 2024 Crimson Game Jam](https://itch.io/jam/crimson-game-jam-fall-2024), and the theme was "meet your maker".
+This game was created for the [Fall 2024 Crimson Game Jam](https://itch.io/jam/crimson-game-jam-fall-2024), where the theme was "meet your maker".
 
 Controls: WASD to move, mouse to aim 
 
