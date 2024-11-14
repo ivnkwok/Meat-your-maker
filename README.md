@@ -8,4 +8,4 @@ Controls: WASD to move, mouse to aim
 When you enter the meat god's cave at the center of the map you can sacrifice or sell your meat. If you don't sacrifice enough meat, the meat god summons a flood. When you sell your meat, you earn coins which can be used to buy upgrades for collecting more meat.  
 
 
-<video>https://youtu.be/EQUVW27AYjQ<iframe width="1280" height="720" src="https://www.youtube.com/embed/EQUVW27AYjQ" title="Meat Your Maker Login Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></video>
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/EQUVW27AYjQ" title="Meat Your Maker Login Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
