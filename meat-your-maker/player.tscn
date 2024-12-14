@@ -124,6 +124,7 @@ offset_bottom = 2.0
 color = Color(1, 0, 0, 1)
 
 [node name="MeatTimerLabel" type="Label" parent="MeatBarContainer"]
+layout_mode = 0
 offset_left = -122.0
 offset_top = -102.0
 offset_right = 5823.0

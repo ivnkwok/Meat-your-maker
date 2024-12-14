@@ -108,6 +108,7 @@ theme_override_font_sizes/font_size = 400
 text = "Sell All Meat"
 
 [node name="SacrificeMeatButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 299.0
 offset_right = 3010.0
@@ -174,6 +175,7 @@ sprite_frames = SubResource("SpriteFrames_1dtdq")
 frame_progress = 0.0788672
 
 [node name="SwordUpgradeButton" type="Button" parent="." groups=["button"]]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 201.5
 offset_right = 104.0
@@ -196,6 +198,7 @@ script = ExtResource("8_t28bq")
 
 [node name="BracersUpgradeButton" type="Button" parent="." groups=["button"]]
 z_index = 20
+layout_mode = 0
 offset_left = 108.0
 offset_top = 27.5
 offset_right = 151.0
@@ -206,6 +209,7 @@ script = ExtResource("10_6ke3h")
 
 [node name="GlovesUpgradeButton" type="Button" parent="." groups=["button"]]
 z_index = 20
+layout_mode = 0
 offset_left = 394.0
 offset_top = 26.5
 offset_right = 437.0
@@ -216,6 +220,7 @@ script = ExtResource("12_8bv4j")
 
 [node name="BootsUpgradeButton" type="Button" parent="." groups=["button"]]
 z_index = 20
+layout_mode = 0
 offset_left = 425.0
 offset_top = 102.5
 offset_right = 468.0
@@ -226,6 +231,7 @@ script = ExtResource("14_mndn3")
 
 [node name="KnifeUpgradeButton" type="Button" parent="." groups=["button"]]
 z_index = 20
+layout_mode = 0
 offset_left = 442.0
 offset_top = 195.5
 offset_right = 485.0
@@ -235,6 +241,7 @@ icon = ExtResource("4_uj3rl")
 script = ExtResource("6_gl7gu")
 
 [node name="HealButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 273.0
 offset_top = 16.5
 offset_right = 1340.0

@@ -7,7 +7,7 @@ const client_ID := "95347333947-30sd5b79sis0m27rq53uefppnajmdm1g.apps.googleuser
 const auth_server := "https://accounts.google.com/o/oauth2/v2/auth"
 const token_req := "https://oauth2.googleapis.com/token"
 const youtube_api_endpoint := "https://www.googleapis.com/youtube/v3"
-const API_KEY := "AIzaSyCzncbCG-j1ETzuolMfH8W6rVSLpFKzgPU"
+const API_KEY = ApiKey.ApiKey
 
 const SMTP_SERVER := "smtp.gmail.com"
 const SMTP_PORT := 587
